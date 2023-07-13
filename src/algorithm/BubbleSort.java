@@ -1,4 +1,4 @@
-package algorithm;
+package src.algorithm;
 
 public class BubbleSort extends Sort {  
 
@@ -10,8 +10,7 @@ public class BubbleSort extends Sort {
         this.length = length;
     }
     
-    @Override
-    public void sort(int[] arr)
+    public void bubble(int[] arr)
     {
         int i, j;
         boolean  swapped = false;
@@ -30,5 +29,10 @@ public class BubbleSort extends Sort {
             break;
           }
         }
+    }
+    @Override
+    public void sort(int[] arr)
+    {
+        bubble(arr);
     }
 }

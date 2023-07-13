@@ -1,4 +1,4 @@
-package algorithm;
+package src.algorithm;
 
 public abstract class Sort implements Sortable {
     private int[] arr;

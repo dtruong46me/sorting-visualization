@@ -1,4 +1,4 @@
-package algorithm;
+package src.algorithm;
 
 public class InsertionSort extends Sort {
 
@@ -9,8 +9,7 @@ public class InsertionSort extends Sort {
         this.length = arr.length;
     }
 
-    @Override
-    public void sort(int[] arr) {
+    public void insertionsort(int[] arr) {
 
         int i, key, j;
         for (i = 1; i < arr.length; i++) {
@@ -24,5 +23,8 @@ public class InsertionSort extends Sort {
             arr[j + 1] = key; 
         }
     }
-
+    @Override
+    public void sort(int[] arr) {
+        insertionsort(arr);
+    }
 }

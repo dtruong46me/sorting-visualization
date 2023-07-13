@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuScreenController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -44,7 +43,7 @@
                   <Insets top="92.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950; -fx-border-radius:: 12px;" text="BUBBLE SORT" textFill="#fafafa">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBubbleSortButton" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950;" text="BUBBLE SORT" textFill="#fafafa">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -52,7 +51,7 @@
                   <Insets top="52.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950;" text="INSERTION SORT" textFill="#fafafa">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleInsertionSortButton" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950;" text="INSERTION SORT" textFill="#fafafa">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -60,7 +59,7 @@
                   <Insets top="23.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950;" text="QUICK SORT" textFill="#fafafa">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleQuickSortButton" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #2A3950;" text="QUICK SORT" textFill="#fafafa">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -68,7 +67,7 @@
                   <Insets top="23.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="68.0" prefWidth="256.0" style="-fx-background-color: #56657D;" text="HELP" textFill="#fafafa">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleHelpButton" prefHeight="68.0" prefWidth="256.0" style="-fx-background-color: #56657D;" text="HELP" textFill="#fafafa">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>

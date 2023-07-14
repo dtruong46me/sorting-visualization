@@ -241,15 +241,13 @@ public class DemonstrationController {
     	switch (curInputArrayOption) {
     		case 0:
     			inputArrayTA.setDisable(true);
-    			
-    		
+    		case 1:
+                inputArrayTA.setDisable(false);
     	}
     }
     
     @FXML
-    void initialize() {
-    	inputArrayTA.setDisable(true);    	
-    	
+    void initialize() {	
     	inputOptionComboBox.getItems().removeAll(inputOptionComboBox.getItems());
     	inputOptionComboBox.getItems().addAll(inputArrayOption);
     	inputOptionComboBox.getSelectionModel().select(inputArrayOption[curInputArrayOption]);

@@ -1,4 +1,4 @@
-package visualization;
+package controller;
 
 import java.util.Random;
 
@@ -26,7 +26,6 @@ public class DemonstrationController {
 	private int check;
 	private int size;
 	private int[] array = new int[size];
-	private boolean isSorting;
 	private boolean isSorted;
 	private boolean isPause;
 	private boolean isStop;
@@ -85,14 +84,6 @@ public class DemonstrationController {
         return curAlg;
     }
 
-
-    public boolean isIsSorting() {
-        return isSorting;
-    }
-
-    public void setIsSorting(boolean isSorting) {
-        this.isSorting = isSorting;
-    }
 
     public int getCompared() {
         return compared;
@@ -217,7 +208,6 @@ public class DemonstrationController {
     					array[i] = temp;
     				}
     			}
-    			isSorting = false;
     			
     			drawCurrentState();
     			break;
@@ -251,15 +241,13 @@ public class DemonstrationController {
     	switch (curInputArrayOption) {
     		case 0:
     			inputArrayTA.setDisable(true);
-    			
-    		
+    		case 1:
+                inputArrayTA.setDisable(false);
     	}
     }
     
     @FXML
-    void initialize() {
-    	inputArrayTA.setDisable(true);    	
-    	
+    void initialize() {	
     	inputOptionComboBox.getItems().removeAll(inputOptionComboBox.getItems());
     	inputOptionComboBox.getItems().addAll(inputArrayOption);
     	inputOptionComboBox.getSelectionModel().select(inputArrayOption[curInputArrayOption]);
@@ -334,5 +322,3 @@ public class DemonstrationController {
     
 
 }
-
-

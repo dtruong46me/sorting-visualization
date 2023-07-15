@@ -2,8 +2,10 @@ package controller;
 
 import java.util.Random;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,15 +29,9 @@ public class DemonstrationController {
 	private int size;
 	private int[] array = new int[size];
 	private boolean isSorted;
-	private boolean isPause;
-	private boolean isStop;
 	
-	private int compared = 0;
-	private int arrayAccessed = 0;
 	private int curInputArrayOption = 0; // 0 for manual, 1 for random
 	private int curAlg = 0; // 0 for bubble, 1 for heap, 2 for quick sort
-	private String[] sortingProcessListMsg = {"BUBBLE SORT", "HEAP SORT", "QUICK SORT"};
-	private String sortingProcessMsg = sortingProcessListMsg[curAlg];
 	
 	private static final int MAX_ARRAY_LENGTH = 300;
 	
@@ -84,31 +80,6 @@ public class DemonstrationController {
         return curAlg;
     }
 
-
-    public int getCompared() {
-        return compared;
-    }
-
-    public void setCompared(int _compared) {
-        this.compared = _compared;
-    }
-
-    public int getArrayAccessed() {
-        return arrayAccessed;
-    }
-
-    public void setArrayAccessed(int _accessed) {
-        this.arrayAccessed = _accessed;
-    }
-
-    public String getSortingProcessMsg() {
-        return sortingProcessMsg;
-    }
-
-    public void setSortingProcessMsg(String _sortingProcessMsg) {
-        this.sortingProcessMsg = _sortingProcessMsg;
-    }
-
     public int getSize() {
         return size;
     }
@@ -125,21 +96,22 @@ public class DemonstrationController {
         this.array = array;
     }
 
-    public boolean isIsPause() {
-        return isPause;
-    }
+	public int getCurrent() {
+		return current;
+	}
 
-    public void setIsPause(boolean isPause) {
-        this.isPause = isPause;
-    }
+	public void setCurrent(int current) {
+		this.current = current;
+	}
 
-    public boolean isIsStop() {
-        return isStop;
-    }
+	public int getCheck() {
+		return check;
+	}
 
-    public void setIsStop(boolean isStop) {
-        this.isStop = isStop;
-    }
+	public void setCheck(int check) {
+		this.check = check;
+	}
+    
 //---------------------------------------FXML---------------------------------------------
     @FXML
     private Label ArraySizeLabel;
@@ -229,12 +201,80 @@ public class DemonstrationController {
     void handleMenuBtn(ActionEvent event) {
     	
     }
-
+    
     @FXML
     void handleSortBtn(ActionEvent event) {
-    	
+        Task<Void> sortingTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                heapSort(array);
+
+                // Update visualization on the JavaFX Application Thread
+                Platform.runLater(() -> drawCurrentState());
+
+                return null;
+            }
+        };
+
+        // Start the sorting task on a separate background thread
+        Thread sortingThread = new Thread(sortingTask);
+        sortingThread.setDaemon(true);
+        sortingThread.start();
     }
-    
+
+    private void heapSort(int[] array) {
+        int n = array.length;
+
+        // Build max heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i);
+        }
+
+        // Perform heap sort
+        for (int i = n - 1; i >= 0; i--) {
+            // Swap root (maximum element) with the last element
+            swap(0, i);
+
+            // Update visualization on the JavaFX Application Thread
+            Platform.runLater(() -> drawCurrentState());
+
+            // Heapify the reduced heap
+            heapify(array, i, 0);
+
+            try {
+                Thread.sleep(300); // Delay for visualization
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void heapify(int[] array, int n, int root) {
+        int largest = root;
+        int leftChild = 2 * root + 1;
+        int rightChild = 2 * root + 2;
+
+        // Find the largest element among the root and its children
+        if (leftChild < n && array[leftChild] > array[largest]) {
+            largest = leftChild;
+        }
+
+        if (rightChild < n && array[rightChild] > array[largest]) {
+            largest = rightChild;
+        }
+
+        // If the largest element is not the root, swap them and heapify the affected subtree
+        if (largest != root) {
+            swap(root, largest);
+            setCurrent(root);
+            setCheck(largest);
+            // Update visualization on the JavaFX Application Thread
+            Platform.runLater(() -> updateProcess(size, array, current, check));
+
+            heapify(array, n, largest);
+        }
+    }
+ 
     @FXML
     void handleInputOptionComboBox(ActionEvent event) {
     	curInputArrayOption = inputOptionComboBox.getSelectionModel().getSelectedIndex();
@@ -244,6 +284,11 @@ public class DemonstrationController {
     		case 1:
                 inputArrayTA.setDisable(false);
     	}
+    }
+    
+    @FXML 
+    void handleSpeedSlider(ActionEvent event){
+    	speed = (int) Math.round(speedSlider.getValue());
     }
     
     @FXML
@@ -266,7 +311,6 @@ public class DemonstrationController {
     				speedLabel.setText(Math.round(newNumber.doubleValue()) + "ms");
     			}
     			});
-    	speed = (int) Math.round(speedSlider.getValue());
     }
     
   //-------------------------------VISUALIZATION----------------------------------
@@ -313,12 +357,4 @@ public class DemonstrationController {
     	drawCurrentState();
     }
     
-    public void delay() {
-    	try {
-    		Thread.sleep(speed);
-    	} catch (Exception e) {
-       	}
-    }
-    
-
 }

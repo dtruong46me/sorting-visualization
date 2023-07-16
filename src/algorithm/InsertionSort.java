@@ -40,20 +40,21 @@ public class InsertionSort extends Sort {
     private void insertionSort(Unit[] arr) {
         for (int i = 1; i < arr.length; i++) {
             Unit key = arr[i];
-            colorUnit(arr, COMPARE, i);
+            colorUnit(arr, CHECKING, i);
             ParallelTransition pt = new ParallelTransition();
             int j = i - 1;
             while (j >= 0 && arr[j].getValue() > key.getValue()) {
                 colorUnit(arr, COMPARE, j);
-                colorUnit(arr, START, j + 1);
+                colorUnit(arr, START, j);
                 pt.getChildren().add(arr[j].move(this.getWidth()));
                 arr[j + 1] = arr[j];
                 j = j - 1;
             }
-            colorUnit(arr, START, j + 1);
             arr[j + 1] = key;
             pt.getChildren().add(key.move(this.getWidth() * (j + 1 - i)));
-            this.transitions.add(pt);
+            transitions.add(pt);
+            colorUnit(arr, START, j + 1);
+
         }
     }
     public ArrayList<Transition> sorting(Unit[] arr) {

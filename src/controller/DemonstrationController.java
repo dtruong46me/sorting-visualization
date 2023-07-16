@@ -1,14 +1,17 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -134,6 +137,8 @@ public class DemonstrationController {
 
     @FXML
     void handleGenerateBtn(ActionEvent event) {
+        drawPane.getChildren().clear();
+        units = null;
     	arrSizeLabel.setText(ArraySizeTF.getText());
     	curInputArrayOption = inputOptionComboBox.getSelectionModel().getSelectedIndex();
     	switch (curInputArrayOption) {
@@ -158,8 +163,14 @@ public class DemonstrationController {
     }
 
     @FXML
-    void handleMenuBtn(ActionEvent event) {
-    	
+    void handleMenuBtn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/screen/MenuScreen.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Menu");
+        stage.show();
     }
     
     @FXML
@@ -204,10 +215,11 @@ public class DemonstrationController {
     	inputOptionComboBox.getItems().addAll(inputArrayOption);
     	inputOptionComboBox.getSelectionModel().select(inputArrayOption[curInputArrayOption]);
     	
-    	speedSlider.setMin(0);
+    	speedSlider.setMin(1);
     	speedSlider.setMax(100);
     	speedSlider.setValue(50);
     	speedLabel.setText("50ms");
+        sequentialTransition.rateProperty().bind(speedSlider.valueProperty());
     	ArraySizeTF.setText("12");
     	
     	speedSlider.valueProperty().addListener(
@@ -230,7 +242,8 @@ public class DemonstrationController {
             unit.setHeight(unit.getValue() * unitHeight);
             unit.setTranslateX(i * width);
             unit.setLayoutY(drawPane.getHeight() - unit.getHeight());
-            unit.setFill(Color.BLACK);
+            //fill with color 2A3950
+            unit.setFill(Color.web("#2A3950"));
             drawPane.getChildren().add(unit);
         }
     }

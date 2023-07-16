@@ -46,7 +46,7 @@ public class QuickSort extends Sort {
     }
     private int partition(Unit[] arr, int low, int high) {
         Unit pivot = arr[high];
-        colorUnit(arr, COMPARE, high);
+        colorUnit(arr, CHECKING, high);
         int i = low - 1;
         for (int j = low; j < high; j++) {
             colorUnit(arr, COMPARE, j);
@@ -59,7 +59,7 @@ public class QuickSort extends Sort {
             }
         }
             swap(arr, i + 1, high);
-            colorUnit(arr, CHECKING, i + 1);
+            colorUnit(arr, START, i + 1);
             return i + 1;
     }
     private void quickSort(Unit[] arr, int low, int high) {

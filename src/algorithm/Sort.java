@@ -11,18 +11,29 @@ import java.util.ArrayList;
 
 public class Sort {
     private double width;
-    public static Color START = Color.BLACK;
-    public static Color CHECKING = Color.GREEN;
-    public static Color COMPARE = Color.RED;
+    public static Color START = Color.web("#2A3950");
+    public static Color CHECKING = Color.web("#84B7FD");
+    public static Color COMPARE = Color.web("#C6CEFF");
     public static ArrayList<Transition> transitions = new ArrayList<>();
     void colorUnit(Unit[] arr, Color color, int...a) {
         ParallelTransition pt = new ParallelTransition();
+        if(a.length == 0) {
+            for (int i = 0; i < arr.length; i++) {
+                FillTransition ft = new FillTransition();
+                ft.setShape(arr[i]);
+                ft.setToValue(color);
+                ft.setDuration(Duration.millis(1));
+                pt.getChildren().add(ft);
+            }
+            transitions.add(pt);
+            return;
+        }
 
         for (int i = 0; i < a.length; i++) {
             FillTransition ft = new FillTransition();
             ft.setShape(arr[a[i]]);
             ft.setToValue(color);
-            ft.setDuration(Duration.millis(100));
+            ft.setDuration(Duration.minutes(0.5));
             pt.getChildren().add(ft);
         }
         transitions.add(pt);

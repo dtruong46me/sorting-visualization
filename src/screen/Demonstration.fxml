@@ -193,11 +193,7 @@
                                     <Font name="Arial" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="algorithmLabel" alignment="CENTER" contentDisplay="CENTER" text="BUBBLE SORT" textFill="#2a3950">
-                                 <font>
-                                    <Font name="Arial Bold" size="16.0" />
-                                 </font>
-                              </Label>
+                              <ComboBox fx:id="algorithmComboBox" prefWidth="150.0" promptText="Algorithm" />
                            </children>
                            <VBox.margin>
                               <Insets />

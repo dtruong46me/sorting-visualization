@@ -1,30 +1,58 @@
-package src.algorithm;
+package algorithm;
+
+import data.Column;
+import javafx.animation.ParallelTransition; 
+import javafx.animation.TranslateTransition;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class InsertionSort extends Sort {
 
-    private int length;
+    private int size;
+  private Pane drawPane;
+  private Column[] cols;
 
-    public InsertionSort(int[] arr) {
-        super(arr);
-        this.length = arr.length;
+    public InsertionSort(Column[] cols, Pane drawPane) {
+        super();
+        this.size = cols.length;
+        this.drawPane = drawPane;
+        this.cols = cols;
+        this.recWidth = drawPane.getWidth()/this.size;
     }
 
-    public void insertionsort(int[] arr) {
+    public void insertionSort() {
 
-        int i, key, j;
-        for (i = 1; i < arr.length; i++) {
-            key = arr[i];
-            j = i - 1;
+        
+        Column key;
 
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
-                j = j - 1;
-            }
-            arr[j + 1] = key; 
-        }
+
+        for (int i = 1; i < cols.length; i++) {
+
+			 key = cols[i]; 
+			int j = i-1;
+            
+			while(j >= 0 && cols[j].compare(key)) {
+				
+                swap(cols, j, j+1);
+                
+				j -= 1;
+			}
+		
+		}
+
     }
     @Override
-    public void sort(int[] arr) {
-        insertionsort(arr);
+    public void sort() {
+        insertionSort();
     }
+    
+    public TranslateTransition move(Column[] cols, int i1,int i2)
+    {
+        TranslateTransition tran = new TranslateTransition(Duration.millis(200), cols[i1]);
+        tran.setByX((i2-i1)*recWidth);
+        
+        return tran;
+    }
+
+    
 }

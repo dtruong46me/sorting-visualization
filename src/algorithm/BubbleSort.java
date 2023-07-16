@@ -1,38 +1,63 @@
-package src.algorithm;
+package algorithm;
 
-public class BubbleSort extends Sort {  
+import controller.DemonstrationController;
+import data.Column;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
-    private int length; 
+public class BubbleSort extends Sort {
 
-    public BubbleSort(int[] arr)
-    {   
-        super(arr);
-        this.length = length;
-    }
-    
-    public void bubble(int[] arr)
-    {
-        int i, j;
-        boolean  swapped = false;
-        for (i = 0; i < this.length-1; i++)
-        {
-          for (j = 0; j < this.length-i-1;j++)
-          {
-             if(arr[j]>arr[j+1])
-             {
-                swap(arr, j, j+1);
-                swapped = true;
-             }
-          }
-          if (swapped == false)
-          {
-            break;
-          }
+  private int size;
+  private Pane drawPane;
+  private Column[] cols;
+
+
+  public BubbleSort( Column[] cols, Pane drawPane) {
+    super();
+    this.size = cols.length;
+    this.drawPane = drawPane;
+    this.cols = cols;
+    this.recWidth = drawPane.getWidth()/this.size;
+  }
+
+  
+
+  
+
+  public void bubbleSort() {
+    int i, j;
+    boolean swapped = false;
+    double temp;  
+
+    for (i = 0; i < this.size - 1; i++) {
+
+      swapped = false;
+
+      for (j = 0; j < this.size - i - 1; j++) {
+        if (cols[j].compare(cols[j + 1])) {
+
+          swap(cols, j, j+1);
+
+          swapped = true;
+
         }
+      }
+      if (swapped == false) {
+        break;
+
+      }
     }
-    @Override
-    public void sort(int[] arr)
-    {
-        bubble(arr);
-    }
+
+  }
+
+  @Override
+  public void sort() {
+    bubbleSort();
+  }
+
 }

@@ -1,32 +1,48 @@
-package src.algorithm;
+package algorithm;
+
+import data.Column;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
 public abstract class Sort implements Sortable {
-    private int[] arr;
+   
+    public Transition[] trans = new Transition[10000];
+    public int count = 0;
+    public double recWidth;
 
-    public Sort(int[] arr)
+    public Sort()
     {
-        this.arr = arr; 
-    }
-
-    public int[] getArray()
-    {
-        return arr;
-    }
-
-    public void setArray(int[] arr)
-    {
-        this.arr = arr;
+      
     }
     
-    public abstract void sort(int[] arr);
+    public abstract void sort();
     
     @Override
-    public void swap(int[] arr, int i1, int i2)
-    {
-        int temp = arr[i1];
-        arr[i1] = arr[i2];
-        arr[i2] = temp;
+    public void swap(Column[] cols, int i1, int i2)
+    {   
+        ParallelTransition paTran = new ParallelTransition();
+       
+        TranslateTransition tran1 = new TranslateTransition(Duration.millis(200), cols[i1]);
+        tran1.setByX((i2-i1)*recWidth);
+        
+        TranslateTransition tran2 = new TranslateTransition(Duration.millis(200), cols[i2]);
+        tran2.setByX((i1-i2)*recWidth);
+        
+        
+        Column temp = cols[i1];
+        cols[i1] = cols[i2];
+        cols[i2] = temp;
+
+
+
+        paTran.getChildren().addAll(tran1, tran2);
+
+        trans[count] = paTran;
+        count += 1;
     }
-
-
+    
+    
+    
 }

@@ -1,40 +1,47 @@
-package src.algorithm;
+package algorithm;
+
+import data.Column;
+import javafx.scene.layout.Pane;
 
 public class QuickSort extends Sort {
-    private int length;
-    public QuickSort(int[] arr)
-    {
-        super(arr);
-        this.length = arr.length;
+
+    private int size;
+    private Pane drawPane;
+    private Column[] cols;
+
+    public QuickSort(Column[] cols, Pane drawPane) {
+        super();
+        this.size = cols.length;
+        this.drawPane = drawPane;
+        this.cols = cols;
+        this.recWidth = drawPane.getWidth() / this.size;
     }
-    private int partition(int[] arr, int low, int high)
-    {
-        int pivot = arr[high];
-        int i = low-1;
-        for (int j = low; j < high; j++)
-        {
-            if (arr[j] < pivot)
-            {
+
+    private int partition(Column[] cols, int low, int high) {
+        Column pivot = cols[high];
+        int i = low - 1;
+        for (int j = low; j <= high - 1; j++) {
+            if (cols[j].getValue() <= pivot.getValue()) {
                 i++;
-                swap(arr, i, j);
+                swap(cols, i, j);
             }
-        }
-        swap(arr, i+1, high);
-        return i+1;
+        } 
+        swap(cols, i + 1, high);
+        return i + 1;
     }
-    private void quickSort(int[] arr, int low, int high)
-    {
-        if (low < high)
-        {
-            int pi = partition(arr, low, high);
-            quickSort(arr, low, pi-1);
-            quickSort(arr, pi+1, high);
+
+    public void quickSort(Column[] cols, int low, int high) {
+        if (low < high) {
+            int pi = partition(cols, low, high);
+
+            quickSort(cols, low, pi - 1);
+            quickSort(cols, pi + 1, high);
         }
     }
+
     @Override
-    public void sort(int[] arr)
-    {
-        quickSort(arr, 0, this.length-1);
+    public void sort() {
+        quickSort(cols, 0, this.size - 1);
     }
 
 }

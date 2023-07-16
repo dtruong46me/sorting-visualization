@@ -1,5 +1,4 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true,
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/Users/mac/Downloads/javafx-sdk-17.0.7/lib/javafx-swt.jar",

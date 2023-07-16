@@ -1,47 +1,77 @@
 package algorithm;
 
-import data.Column;
-import javafx.scene.layout.Pane;
+import javafx.animation.Transition;
+import data.Unit;
+
+import java.util.ArrayList;
 
 public class QuickSort extends Sort {
-
-    private int size;
-    private Pane drawPane;
-    private Column[] cols;
-
-    public QuickSort(Column[] cols, Pane drawPane) {
-        super();
-        this.size = cols.length;
-        this.drawPane = drawPane;
-        this.cols = cols;
-        this.recWidth = drawPane.getWidth() / this.size;
+//    private int length;
+//    public QuickSort(int[] arr)
+//    {
+//        super(arr);
+//        this.length = arr.length;
+//    }
+//    private int partition(int[] arr, int low, int high)
+//    {
+//        int pivot = arr[high];
+//        int i = low-1;
+//        for (int j = low; j < high; j++)
+//        {
+//            if (arr[j] < pivot)
+//            {
+//                i++;
+//                swap(arr, i, j);
+//            }
+//        }
+//        swap(arr, i+1, high);
+//        return i+1;
+//    }
+//    private void quickSort(int[] arr, int low, int high)
+//    {
+//        if (low < high)
+//        {
+//            int pi = partition(arr, low, high);
+//            quickSort(arr, low, pi-1);
+//            quickSort(arr, pi+1, high);
+//        }
+//    }
+//    @Override
+//    public void sort(int[] arr)
+//    {
+//        quickSort(arr, 0, this.length-1);
+//    }
+    public QuickSort(double width) {
+        super(width);
     }
-
-    private int partition(Column[] cols, int low, int high) {
-        Column pivot = cols[high];
+    private int partition(Unit[] arr, int low, int high) {
+        Unit pivot = arr[high];
+        colorUnit(arr, COMPARE, high);
         int i = low - 1;
-        for (int j = low; j <= high - 1; j++) {
-            if (cols[j].getValue() <= pivot.getValue()) {
+        for (int j = low; j < high; j++) {
+            colorUnit(arr, COMPARE, j);
+            if (arr[j].getValue() < pivot.getValue()) {
                 i++;
-                swap(cols, i, j);
+                swap(arr, i, j);
+                colorUnit(arr, START, i);
+            } else {
+                colorUnit(arr, START, j);
             }
-        } 
-        swap(cols, i + 1, high);
-        return i + 1;
+        }
+            swap(arr, i + 1, high);
+            colorUnit(arr, CHECKING, i + 1);
+            return i + 1;
     }
-
-    public void quickSort(Column[] cols, int low, int high) {
+    private void quickSort(Unit[] arr, int low, int high) {
         if (low < high) {
-            int pi = partition(cols, low, high);
-
-            quickSort(cols, low, pi - 1);
-            quickSort(cols, pi + 1, high);
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi-1);
+            quickSort(arr, pi+1, high);
         }
     }
-
-    @Override
-    public void sort() {
-        quickSort(cols, 0, this.size - 1);
+    public ArrayList<Transition> sorting(Unit[] arr) {
+        quickSort(arr, 0, arr.length-1);
+        colorUnit(arr, CHECKING);
+        return this.transitions;
     }
-
 }

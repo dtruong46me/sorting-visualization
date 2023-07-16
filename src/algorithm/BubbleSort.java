@@ -1,63 +1,33 @@
 package algorithm;
 
-import controller.DemonstrationController;
-import data.Column;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
+import javafx.animation.Transition;
+import data.Unit;
+
+import java.util.ArrayList;
 
 public class BubbleSort extends Sort {
-
-  private int size;
-  private Pane drawPane;
-  private Column[] cols;
-
-
-  public BubbleSort( Column[] cols, Pane drawPane) {
-    super();
-    this.size = cols.length;
-    this.drawPane = drawPane;
-    this.cols = cols;
-    this.recWidth = drawPane.getWidth()/this.size;
-  }
-
-  
-
-  
-
-  public void bubbleSort() {
-    int i, j;
-    boolean swapped = false;
-    double temp;  
-
-    for (i = 0; i < this.size - 1; i++) {
-
-      swapped = false;
-
-      for (j = 0; j < this.size - i - 1; j++) {
-        if (cols[j].compare(cols[j + 1])) {
-
-          swap(cols, j, j+1);
-
-          swapped = true;
-
-        }
-      }
-      if (swapped == false) {
-        break;
-
-      }
+    public BubbleSort(double width) {
+        super(width);
     }
-
-  }
-
-  @Override
-  public void sort() {
-    bubbleSort();
-  }
-
+    private void compare(Unit[] arr, int i, int j) {
+        colorUnit(arr, COMPARE, i, j);
+        //
+        if (arr[i].getValue() > arr[j].getValue()) {
+            swap(arr, i, j);
+        }
+        colorUnit(arr, START, i, j);
+    }
+    private void bubbleSort(Unit[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = arr.length-1; j > i; j--) {
+                compare(arr, j, j-1);
+            }
+            colorUnit(arr, CHECKING, i);
+        }
+    }
+    public ArrayList<Transition> sorting(Unit[] arr) {
+        bubbleSort(arr);
+        colorUnit(arr, CHECKING);
+        return this.transitions;
+    }
 }

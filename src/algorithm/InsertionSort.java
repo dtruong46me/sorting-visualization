@@ -59,6 +59,6 @@ public class InsertionSort extends Sort {
     public ArrayList<Transition> sorting(Unit[] arr) {
         insertionSort(arr);
         colorUnit(arr, CHECKING);   
-        return this.transitions;
+        return transitions;
     }
 }

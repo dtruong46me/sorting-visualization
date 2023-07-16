@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class Sort {
     private double width;
-    public Color START = Color.BLACK;
-    public Color CHECKING = Color.GREEN;
-    public Color COMPARE = Color.RED;
-    public ArrayList<Transition> transitions = new ArrayList<>();
-    ParallelTransition colorUnit(Unit[] arr, Color color, int...a) {
+    public static Color START = Color.BLACK;
+    public static Color CHECKING = Color.GREEN;
+    public static Color COMPARE = Color.RED;
+    public static ArrayList<Transition> transitions = new ArrayList<>();
+    void colorUnit(Unit[] arr, Color color, int...a) {
         ParallelTransition pt = new ParallelTransition();
 
         for (int i = 0; i < a.length; i++) {
@@ -25,7 +25,7 @@ public class Sort {
             ft.setDuration(Duration.millis(100));
             pt.getChildren().add(ft);
         }
-        return pt;
+        transitions.add(pt);
     }
     public Sort(double width) {
         this.width = width;

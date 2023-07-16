@@ -18,16 +18,16 @@ public class BubbleSort extends Sort {
         colorUnit(arr, START, i, j);
     }
     private void bubbleSort(Unit[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = arr.length-1; j > i; j--) {
-                compare(arr, j, j-1);
+        for (int i = 0; i < arr.length-1; i++) {
+            for (int j = 0; j <arr.length-i-1; j++) {
+                compare(arr, j, j+1);
             }
-            colorUnit(arr, CHECKING, i);
+            colorUnit(arr, CHECKING, arr.length - i - 1);
         }
     }
     public ArrayList<Transition> sorting(Unit[] arr) {
         bubbleSort(arr);
         colorUnit(arr, CHECKING);
-        return this.transitions;
+        return transitions;
     }
 }

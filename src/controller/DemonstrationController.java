@@ -32,7 +32,6 @@ public class DemonstrationController {
     private InputTransformer transformer = new InputTransformer();
     private double width;
 	public int speed;
-	private Random r = new Random();
 	private int current;
 	private int check;
 	private int size;
@@ -44,30 +43,6 @@ public class DemonstrationController {
 	
 	private String[] inputArrayOption = {"Random", "Manual"};
 	
-	
-//-------------------------------DATA INIT-------------------------------------------
-	public void basicArray() {
-		for (int i = 0; i < size; i++) {
-			array[i] = i + 1;
-		}
-	}
-	
-    public void swap(int p1, int p2) { 
-        int tempt = array[p1];
-        array[p1] = array[p2];
-        array[p2] = tempt;
-    }
-    
-    public void genRandomArr() { 
-        basicArray();
-        for (int x = 0; x < 50; x++) {
-            for (int i = 0; i < size; i++) {
-                int rand = r.nextInt(size);
-                swap(rand, i);
-            }
-        }
-    }
-    
 //------------------------------------Setter and Getter------------------------
     public int getSpeed() {
         return speed;
@@ -164,25 +139,10 @@ public class DemonstrationController {
     	switch (curInputArrayOption) {
     		case 0: //random
     			size = Integer.parseInt(ArraySizeTF.getText());
-//
-//    			array = new int[size];
-//    			for (int i = 0; i < size; i++) {
-//    				array[i] = i + 1;
-//    			}
-//    			for (int a = 0; a < 500; a++) {
-//    				for (int i = 0; i < size; i++) {
-//    					int rand = r.nextInt(size);
-//    					int temp = array[rand];
-//    					array[rand] = array[i];
-//    					array[i] = temp;
-//    				}
-//    			}
-//
-//    			drawCurrentState();
                 units = dataController.randomArr(size);
                 createUnits(units);
     			break;
-    		case 1:
+    		case 1: //manual
     			int[] newArr;
     			try {
     				newArr = transformer.StrToArr(transformer.deleteNewLineTabSpaces(inputArrayTA.getText()), ",");
@@ -204,22 +164,6 @@ public class DemonstrationController {
     
     @FXML
     void handleSortBtn(ActionEvent event) {
-//        Task<Void> sortingTask = new Task<Void>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                heapSort(array);
-//
-//                // Update visualization on the JavaFX Application Thread
-//                Platform.runLater(() -> drawCurrentState());
-//
-//                return null;
-//            }
-//        };
-//
-//        // Start the sorting task on a separate background thread
-//        Thread sortingThread = new Thread(sortingTask);
-//        sortingThread.setDaemon(true);
-//        sortingThread.start();
         String alg = ((Stage) sortBtn.getScene().getWindow()).getTitle();
         double cwidth = drawPane.getWidth()/units.length;
         Sort sort = new Sort(cwidth);
@@ -238,59 +182,6 @@ public class DemonstrationController {
         sequentialTransition.play();
     }
 
-//    private void heapSort(int[] array) {
-//        int n = array.length;
-//
-//        // Build max heap
-//        for (int i = n / 2 - 1; i >= 0; i--) {
-//            heapify(array, n, i);
-//        }
-//
-//        // Perform heap sort
-//        for (int i = n - 1; i >= 0; i--) {
-//            // Swap root (maximum element) with the last element
-//            swap(0, i);
-//
-//            // Update visualization on the JavaFX Application Thread
-//            Platform.runLater(() -> drawCurrentState());
-//
-//            // Heapify the reduced heap
-//            heapify(array, i, 0);
-//
-//            try {
-//                Thread.sleep(300); // Delay for visualization
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    private void heapify(int[] array, int n, int root) {
-//        int largest = root;
-//        int leftChild = 2 * root + 1;
-//        int rightChild = 2 * root + 2;
-//
-//        // Find the largest element among the root and its children
-//        if (leftChild < n && array[leftChild] > array[largest]) {
-//            largest = leftChild;
-//        }
-//
-//        if (rightChild < n && array[rightChild] > array[largest]) {
-//            largest = rightChild;
-//        }
-//
-//        // If the largest element is not the root, swap them and heapify the affected subtree
-//        if (largest != root) {
-//            swap(root, largest);
-//            setCurrent(root);
-//            setCheck(largest);
-//            // Update visualization on the JavaFX Application Thread
-//            Platform.runLater(() -> updateProcess(size, array, current, check));
-//
-//            heapify(array, n, largest);
-//        }
-//    }
- 
     @FXML
     void handleInputOptionComboBox(ActionEvent event) {
     	curInputArrayOption = inputOptionComboBox.getSelectionModel().getSelectedIndex();
@@ -330,51 +221,8 @@ public class DemonstrationController {
     }
     
   //-------------------------------VISUALIZATION----------------------------------
-//    public void drawCurrentState() {
-//    	drawPane.getChildren().clear();
-//        int maxHeight = -1;
-//        for (int i = 0; i < size; i++) {
-//            maxHeight = Math.max(maxHeight, array[i]);
-//        }
-//
-//        double recWidth = drawPane.getWidth()/size;
-//
-//        for (int i = 0; i < size; i++) {
-//            double HEIGHT = array[i] * (drawPane.getHeight()/maxHeight); // set height of element in graph.
-//            Rectangle rec = new Rectangle();
-//            rec.setHeight(HEIGHT);
-//            rec.setWidth(recWidth);
-//            rec.setStroke(Color.BLACK);
-//            rec.setStrokeWidth(1);
-//            rec.setStroke(Color.WHITE);
-//            rec.setVisible(true);
-//
-//            if (current > -1 && i == current) {
-//                rec.setFill(Color.RED); // color of current traversing element
-//            }
-//            if (check > -1 && i == check) {
-//                rec.setFill(Color.GREEN); // color of current checking element
-//            }
-//            double curRectPosX = i * recWidth;
-//            // fill rectangle element in graph
-//
-//            rec.setX(curRectPosX);
-//            rec.setY(drawPane.getHeight() - HEIGHT);
-//            drawPane.getChildren().add(rec);
-//        }
-//    }
-//
-//    public void updateProcess(int length, int[] array, int current, int check) {
-//    	this.size = length;
-//    	this.array = array;
-//    	this.current = current;
-//    	this.check = check;
-//
-//    	drawCurrentState();
-//    }
     public void createUnits(Unit... units) {
         this.width = drawPane.getWidth()/units.length;
-        System.out.println("width: " + drawPane.getWidth() + " height: " + drawPane.getHeight());
         double unitHeight = drawPane.getHeight()/getMaxHeight(units);
         for (int i = 0; i < units.length; i++) {
             Unit unit = units[i];

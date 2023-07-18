@@ -6,6 +6,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -175,6 +176,11 @@ public class DemonstrationController {
     	}
     }
     
+    @FXML 
+    void handleSpeedSlider(ActionEvent event){
+    	speed = (int) Math.round(speedSlider.getValue());
+    }
+    
     @FXML
     void initialize() {	
     	inputOptionComboBox.getItems().removeAll(inputOptionComboBox.getItems());
@@ -220,5 +226,4 @@ public class DemonstrationController {
         }
         return maxHeight;
     }
-    
 }

@@ -23,6 +23,7 @@ public class MenuScreenController{
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setTitle("Bubble Sort");
         stage.show();
     }
 
@@ -33,6 +34,7 @@ public class MenuScreenController{
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setTitle("Insertion Sort");
         stage.show();
     }
 
@@ -43,6 +45,7 @@ public class MenuScreenController{
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setTitle("Quick Sort");
         stage.show();
     }
 

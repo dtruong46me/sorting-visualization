@@ -12,7 +12,7 @@ order to explain three sorting algorithms on an array: `Bubble Sort`, `Quick Sor
         - https://www.youtube.com/watch?v=PgBzjlCcFvc
         - https://www.youtube.com/watch?v=OGzPmgsI-pQ
 * **Design:**
-    - On the main menu: title of the application, 3 types of sort algorithms for the user to choose, help, menu, and quit
+    - On the main menu: title of the application, 3 types of Sort Algorithms for the user to choose, help, menu, and quit
         - User must select a sort type in order to start the demonstration
         - The help menu shows the basic usage and aim of the program
         - Quit exits the program. Remember to ask for confirmation
@@ -26,7 +26,18 @@ design your own wrapper to show your OOP design in the project
 In this way, you will find there are some similarities between the sortings (input, functions, attributes, etc.)
 
 ## Demo
-
+**Menu Screen**
+- [x] Title of the Application
+- [x] 3 types of Sorting Algorithms to choose
+- [x] Help Button
+- [x] Quit Button (This is the Close button on the top-right)
+![Menu](/design/gui/Menu.png)
+**Demonstration Screen**
+- [x] A Button to Create a new Array
+- [x] User can Input from the keyboard
+- [x] A Button to Start Sorting
+- [x] A Back Button to Return to the main menu
+![Demonstration](/design/gui/Demonstration.png)
 ## Contribution
 * Nguyen Viet Trung- 20214934:
     - DataController class

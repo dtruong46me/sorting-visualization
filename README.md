@@ -31,13 +31,51 @@ In this way, you will find there are some similarities between the sortings (inp
 - [x] 3 types of Sorting Algorithms to choose
 - [x] Help Button
 - [x] Quit Button (This is the Close button on the top-right)
+
 ![Menu](/design/gui/Menu.png)
+
 **Demonstration Screen**
 - [x] A Button to Create a new Array
 - [x] User can Input from the keyboard
 - [x] A Button to Start Sorting
 - [x] A Back Button to Return to the main menu
+
 ![Demonstration](/design/gui/Demonstration.png)
+
+**Video Demo:** https://youtu.be/_M5b8HzrfwE
+
+## Installation
+**Note:** Our team develop this project on **Visual Studio Code**. So this instruction here is for VS Code. If you use another IDE, please references for another installation.
+
+**Requirements**
+- Install JDK and SDK for JavaFX
+- Use Visual Studio Code (Or an other IDE)
+- Add all file `.jar` to the VS Code
+
+**How to install?**
+- Clone this project by command:
+`git clone https://github.com/dtruong46me/sorting-visualization.git`
+- Open this project on Visual Studio Code
+- Edit the file: `.vscode/launch.json`
+    - You can delete `.vscode` folder
+    - Create new `launch.json` file by: `Run->Add Configuration...` on the menu bar.
+    - Then change the folder of **SDK** downloaded above. (You can refer here: https://gluonhq.com/products/javafx/)
+```
+{
+    "type": "java",
+    "name": "Main",
+    "request": "launch",
+    "mainClass": "Main",
+    "projectName": "sorting-visualization_4b44adce",
+    "vmArgs": "--module-path \"<link_to_the_sdk_folder>/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+},
+```
+- Finally, Open `src/Main.java` and Run.
+
+I hope that you are will successfully install this project. If you have any troubles, contact me via **dtruong46.me@gmail.com** or **truong.pd214937@sis.hust.edu.vn**. I will help you to install and run this project.
+
+Thank you!
+
 ## Contribution
 * Nguyen Viet Trung- 20214934:
     - DataController class
@@ -61,4 +99,4 @@ In this way, you will find there are some similarities between the sortings (inp
     -	Handle Quit Button
 ## References
 * This project based on: https://github.com/chriszq/VisualSortingAlgorithms
-* Video Demo: https://youtu.be/_M5b8HzrfwE
+
